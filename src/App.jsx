@@ -1,5 +1,4 @@
 import './App.css'
-import Conf from './conf/Conf'
 
 function App() {
 
