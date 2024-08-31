@@ -1,4 +1,4 @@
-import Conf from './conf/Conf'
+import Conf from '../conf/Conf';
 import {Client, Account, ID} from 'appwrite'
 
 class AuthService{
@@ -22,7 +22,7 @@ class AuthService{
                 return userAccount
             }
         } catch (error) {
-            console.log("Appwrite :: createAccount :: error"+error)
+            console.log("Appwrite :: createAccount :: error ::"+error)
         }
     }
 
@@ -30,7 +30,7 @@ class AuthService{
         try{
             return await this.account.createEmailPasswordSession(email, password)
         }catch (error){
-            console.log("Appwrite :: login :: error"+error)
+            console.log("Appwrite :: login :: error ::"+error)
         }
     }
     
@@ -38,7 +38,7 @@ class AuthService{
         try{
             return await this.account.get()
         }catch (error){
-            console.log("Appwrite :: getUser :: error"+error)
+            console.log("Appwrite :: getUser :: error ::"+error)
         }
         return null;
     }
@@ -47,11 +47,11 @@ class AuthService{
         try{
             await this.account.deleteSessions();
         }catch(error){
-            console.log("Appwrite :: logout :: error"+error)
+            console.log("Appwrite :: logout :: error ::"+error)
         }
     }
 
 }
 
-const authService = AuthService()
+const authService = new AuthService()
 export default authService
