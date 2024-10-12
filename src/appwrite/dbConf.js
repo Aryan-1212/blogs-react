@@ -1,5 +1,6 @@
-import { Client, Databases, ID, Query } from "appwrite";
-import Conf from './conf/Conf'
+import { Client, Databases, ID, Query, Storage } from "appwrite";
+// import Conf from './conf/Conf'
+import Conf from "../conf/Conf";
 
 class DbService{
     client = new Client();
@@ -10,8 +11,8 @@ class DbService{
         this.client
             .setEndpoint(Conf.appwriteUrl)
             .setProject(Conf.appwriteProjectId)
-        this.databases = new Databases(client)
-        this.bucket = new Storage(client)
+        this.databases = new Databases(this.client)
+        this.bucket = new Storage(this.client)
     }
 
     async createPost({title, content, slug, featuredImage, status, userId}){
