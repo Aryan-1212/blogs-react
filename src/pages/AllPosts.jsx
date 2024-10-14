@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Container, PostCard } from "../components";
+import { Container, Loader, PostCard } from "../components";
 import dbService from "../appwrite/dbConf";
 
 function AllPosts() {
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     dbService.getPosts().then((posts) => {
       if (posts) {
+        setIsLoading(false);
         setPosts(posts.documents);
       }
     });
   }, []);
 
-  return (
+  return isLoading? <Loader/> : (
     <div className="py-8 w-full">
       <Container>
           <div className="flex flex-wrap">

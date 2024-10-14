@@ -12,6 +12,7 @@ import Select from "./Select";
 import RTE from "./RTE";
 import Signup from "./Signup";
 import AuthLayout from "./AuthLayout";
+import Loader from "./Loader";
 
 export {
   Header,
@@ -28,4 +29,5 @@ export {
   PostForm,
   Signup,
   AuthLayout,
+  Loader
 };

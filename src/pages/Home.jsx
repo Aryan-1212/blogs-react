@@ -4,10 +4,12 @@ import dbService from "../appwrite/dbConf";
 import { useSelector } from "react-redux";
 import home1 from '../assets/home-1.png'
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const status = useSelector((state) => state.authSlice.status);
+  const [loading, setLoading] = useState(true)
 
 
   useEffect(() => {
@@ -16,12 +18,13 @@ function Home() {
     }
     dbService.getPosts().then((posts) => {
       if (posts) {
+        setLoading(false)
         setPosts(posts.documents);
       }
     });
   }, [status]);
 
-  if (posts.length == 0) {
+  if(!status){
     return (
       <div className="w-full py-8 mt-4 text-center">
         <Container>
@@ -59,8 +62,9 @@ function Home() {
         </Container>
       </div>
     );
-  } else {
-    return (
+  }
+  
+  return loading ? <Loader /> : (
       <div className="py-8 w-full">
         <Container>
           <div className="flex flex-wrap">
@@ -73,7 +77,6 @@ function Home() {
         </Container>
       </div>
     );
-  }
 }
 
 export default Home;

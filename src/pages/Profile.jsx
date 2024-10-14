@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { LogoutBtn } from "../components";
+import { Loader, LogoutBtn } from "../components";
 import profileImage from '../assets/profile.png'
 import dbService from "../appwrite/dbConf";
 import { useState } from "react";
@@ -23,7 +23,7 @@ function Profile() {
     })
   }, []);
 
-  return isLoading? <h1>Loading...</h1>:
+  return isLoading? <Loader /> :
 (
     <div className="flex flex-col items-center justify-center my-8">
       <div className="bg-white text-center shadow-lg rounded-lg p-6 max-w-sm w-full">

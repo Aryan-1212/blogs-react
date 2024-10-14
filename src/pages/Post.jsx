@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import dbService from "../appwrite/dbConf";
-import { Button, Container } from "../components";
+import { Button, Container, Loader } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 
@@ -60,5 +60,5 @@ export default function Post() {
         <div className="browser-css">{parse(post.content)}</div>
       </Container>
     </div>
-  ) : null;
+  ) : <Loader />;
 }
