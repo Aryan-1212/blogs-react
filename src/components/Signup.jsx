@@ -16,8 +16,10 @@ function Signup() {
     setError("");
     try {
       const session = await authService.createAccount(data);
+      console.log(session)
       if (session) {
         const userData = await authService.getUser();
+        console.log(userData)
         if (userData) dispatch(StateLogin(userData));
         navigate("/");
       }

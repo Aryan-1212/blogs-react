@@ -17,7 +17,7 @@ class AuthService{
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name)
             if(userAccount){
-                this.login({email, password})
+                return this.login({email, password})
             }else{
                 return userAccount
             }
@@ -28,7 +28,8 @@ class AuthService{
 
     async login({email,password}){
         try{
-            return await this.account.createEmailPasswordSession(email, password)
+            const loginSession = await this.account.createEmailPasswordSession(email, password)
+            return loginSession
         }catch (error){
             throw error
         }

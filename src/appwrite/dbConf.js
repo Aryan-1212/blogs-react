@@ -98,6 +98,19 @@ class DbService{
         }
     }
 
+    async getPostsById(userId){
+        try {
+            return await this.databases.listDocuments(
+                Conf.appwriteDatabaseId,
+                Conf.appwriteCollectionId,
+                [Query.equal('userId',userId)]
+            )
+        } catch (error) {
+            console.log("Appwrite :: getPosts :: error"+error)
+            return false
+        }
+    }
+
     // Bucket Service
 
     async uploadFile(file){
