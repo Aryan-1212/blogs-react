@@ -10,13 +10,13 @@ function PostForm({ post }) {
     useForm({
       defaultValues: {
         title: post?.title || "",
-        slug: post?.slug || "",
+        slug: post?.$id || "",
         content: post?.content || "",
         status: post?.status || "active",
       },
     });
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.userData);
+  const user = useSelector((state) => state.authSlice.userData);
 
   const Submit = async (data) => {
     if (post) {
@@ -57,7 +57,7 @@ function PostForm({ post }) {
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d]+/g, "-");
+        .replace(/[^a-zA-Z\d]+/g, "-");
     }
     return "";
   }, []);
@@ -79,6 +79,7 @@ function PostForm({ post }) {
           placeholder="Post Title"
           className="mb-4"
           {...register("title", { required: true })}
+          
         />
         <Input
           label="Slug: "

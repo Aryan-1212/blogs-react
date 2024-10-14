@@ -37,6 +37,8 @@ class DbService{
     }
 
     async updatePost(slug, {title, content, featuredImage, status}){
+        console.log(content)
+        console.log(typeof content)
         try {
             return await this.databases.updateDocument(
                 Conf.appwriteDatabaseId,
@@ -124,9 +126,9 @@ class DbService{
         }
     }
 
-    async filePreview(fileId){
+    filePreview(fileId){
         try {
-            return await this.bucket.getFilePreview(
+            return this.bucket.getFilePreview(
                 Conf.appwriteBucketId,
                 fileId
             )

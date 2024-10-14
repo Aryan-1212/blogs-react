@@ -22,7 +22,7 @@ class AuthService{
                 return userAccount
             }
         } catch (error) {
-            console.log("Appwrite :: createAccount :: error ::"+error)
+            throw error
         }
     }
 
@@ -30,7 +30,7 @@ class AuthService{
         try{
             return await this.account.createEmailPasswordSession(email, password)
         }catch (error){
-            console.log("Appwrite :: login :: error ::"+error)
+            throw error
         }
     }
     

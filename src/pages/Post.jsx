@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import dbService from "../appwrite/dbConf";
 import { Button, Container } from "../components";
-import { parse } from "html-react-parser";
+import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 
 export default function Post() {
@@ -10,8 +10,9 @@ export default function Post() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  const userData = useSelector((state) => state.auth.userData);
+  const userData = useSelector((state) => state.authSlice.userData);
   const isAuthor = post && userData ? post.userId === userData.$id : false;
+
 
   useEffect(() => {
     if (slug) {

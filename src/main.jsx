@@ -4,11 +4,17 @@ import App from './App.jsx'
 import './index.css'
 import store from './store/store.js'
 import { Provider } from 'react-redux'
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
-import {Login, Home} from './components'
-import Signup from './components/Signup.jsx'
+import { createBrowserRouter, RouterProvider} from 'react-router-dom'
+import {AuthLayout} from './components'
+
+
+import Login from './pages/Login.jsx'
+import Signup from './pages/Signup.jsx'
 import Home from './pages/Home.jsx'
-import AuthLayout from './components/AuthLayout.jsx'
+import AllPosts from './pages/AllPosts.jsx'
+import AddPost from './pages/AddPost.jsx'
+import EditPost from './pages/EditPost.jsx'
+import Post from './pages/Post.jsx'
 
 const router = createBrowserRouter([
   {
@@ -70,7 +76,7 @@ const router = createBrowserRouter([
   }
 ])
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
