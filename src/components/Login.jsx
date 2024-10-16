@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Logo, Button } from "./index";
 import authService from "../appwrite/auth";
 import { useDispatch } from "react-redux";
@@ -10,10 +10,12 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
 
   const login = async (data) => {
     setError("");
+    setLoading(true);
     try {
       const session = await authService.login(data);
       if (session) {
@@ -23,6 +25,8 @@ function Login() {
       }
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -73,9 +77,11 @@ function Login() {
             })}
             />
             <Button
-            children='Sign in'
+            children={loading ? "Validating Credentials" : "Sign In"}
             type="submit"
-            className="w-full"
+            // className="w-full"
+            className={`w-full ${loading ? "bg-gray-300" : ""}`}
+            disabled={loading}
             />
           </div>
         </form>

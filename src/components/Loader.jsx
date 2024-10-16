@@ -2,7 +2,7 @@ import React from "react";
 
 const Loader = () => {
   return (
-    <div className="flex justify-center items-center py-8 bg-gray-100">
+    <div className="flex justify-center items-center my-20 bg-gray-100">
       <div className="bg-white shadow-md rounded-lg p-4 w-80 animate-pulse">
         {/* Image Placeholder */}
         <div className="flex items-center mb-4">

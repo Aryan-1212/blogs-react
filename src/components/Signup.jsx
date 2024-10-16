@@ -10,21 +10,25 @@ function Signup() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const userRegister = async (data) => {
     setError("");
+    setLoading(true);
     try {
       const session = await authService.createAccount(data);
-      console.log(session)
+      console.log(session);
       if (session) {
         const userData = await authService.getUser();
-        console.log(userData)
+        console.log(userData);
         if (userData) dispatch(StateLogin(userData));
         navigate("/");
       }
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,42 +56,44 @@ function Signup() {
         </p>
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
         <form onSubmit={handleSubmit(userRegister)}>
-            <div className="space-y-5">
-                <Input
-                label="Full Name: "
-                placeholder="Enter your full name"
-                {...register("name",{
-                    required: true
-                })}
-                />
-                <Input 
-                label="Email: "
-                placeholder="Enter your email"
-                type="email"
-                {...register("email", {
-                    required: true,
-                    validate: {
-                        matchPatern: (value) =>
-                            /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                        "Email address must be a valid address"
-                    }
-                })}
-                />
+          <div className="space-y-5">
+            <Input
+              label="Full Name: "
+              placeholder="Enter your full name"
+              {...register("name", {
+                required: true,
+              })}
+            />
+            <Input
+              label="Email: "
+              placeholder="Enter your email"
+              type="email"
+              {...register("email", {
+                required: true,
+                validate: {
+                  matchPatern: (value) =>
+                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                    "Email address must be a valid address",
+                },
+              })}
+            />
 
-                <Input 
-                label="Password: "
-                placeholder="Create password"
-                type="password"
-                {...register("password",{
-                    required:true
-                })}
-                />
-                <Button
-                children="Create Account"
-                type="submit"
-                className="w-full"
-                />
-            </div>
+            <Input
+              label="Password: "
+              placeholder="Create password"
+              type="password"
+              {...register("password", {
+                required: true,
+              })}
+            />
+            <Button
+              // children="Create Account"
+              children={loading ? "Validating Credentials" : "Create Account"}
+              type="submit"
+              className={`w-full ${loading ? "bg-gray-300" : ""}`}
+              disabled={loading}
+            />
+          </div>
         </form>
       </div>
     </div>
