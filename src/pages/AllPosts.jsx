@@ -37,7 +37,7 @@ function AllPosts() {
           {/* <div className="h-96 bg-red-500 flex text-3xl ">
             You don&apos;t have any post!
             </div> */}
-            <div className="w-full flex flex-col justify-center items-center md:flex-row">
+            <div className="w-full flex flex-col justify-center items-center md:flex-row my-20">
               <div>
                 <img src={home1} alt="" />
               </div>
