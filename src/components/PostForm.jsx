@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Select, Button, RTE } from "./";
 import dbService from "../appwrite/dbConf";
@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { set, useForm } from "react-hook-form";
 
 function PostForm({ post }) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const { register, handleSubmit, setValue, getValues, watch, control } =
     useForm({
       defaultValues: {
@@ -19,6 +21,7 @@ function PostForm({ post }) {
   const user = useSelector((state) => state.authSlice.userData);
 
   const Submit = async (data) => {
+    setIsLoading(true)
     if (post) {
       const file = data.image[0]
         ? await dbService.uploadFile(data.image[0])
@@ -32,6 +35,7 @@ function PostForm({ post }) {
       });
 
       if (dbPost) {
+        setIsLoading(false)
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
@@ -46,6 +50,7 @@ function PostForm({ post }) {
           userId: user.$id,
         });
         if (dbPost) {
+          setIsLoading(false)
           navigate(`/post/${dbPost.$id}`);
         }
       }
@@ -72,8 +77,8 @@ function PostForm({ post }) {
   }, [watch, slugTransform, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(Submit)} className="flex flex-wrap">
-      <div className="w-2/3 px-2">
+    <form onSubmit={handleSubmit(Submit)} className="flex flex-wrap justify-center">
+      <div className="w-full sm:w-2/3 px-2">
         <Input
           label="Title: "
           placeholder="Post Title"
@@ -99,7 +104,7 @@ function PostForm({ post }) {
           defaultValue={getValues("content")}
         />
       </div>
-      <div className="w-1/3 px-2">
+      <div className="w-full sm:w-2/3 md:w-1/3 px-2">
         <Input
           label="Featured Image: "
           type="file"
@@ -124,10 +129,11 @@ function PostForm({ post }) {
         />
         <Button
           type="submit"
-          bgColor={post ? "bg-green-500" : undefined}
+          disabled={isLoading}
+          bgColor={isLoading? "bg-gray-500":(post? "bg-green-500":"bg-blue-500")}
           className="w-full"
         >
-          {post ? "Update" : "Submit"}
+          {isLoading? (post? "Updating...":"Submitting..."):post?"Update":"Submit"}
         </Button>
       </div>
     </form>

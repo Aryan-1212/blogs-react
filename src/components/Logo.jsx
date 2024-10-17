@@ -1,9 +1,9 @@
 import React from 'react'
-import logo from '../assets/Screenshot_2024-08-31_222416-removebg-preview.png'
+import logo from '../assets/logo.png'
 
 function Logo({width='100px'}) {
   return (
-    <img src={logo} alt="Logo" width={width} />
+    <img src={logo} alt="Logo" className='w-16 sm:w-20 md:w-40' width={width} />
   )
 }
 

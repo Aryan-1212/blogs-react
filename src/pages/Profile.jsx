@@ -25,7 +25,7 @@ function Profile() {
 
   return isLoading? <Loader /> :
 (
-    <div className="flex flex-col items-center justify-center my-8">
+    <div className="flex flex-col items-center justify-center my-8 mx-10">
       <div className="bg-white text-center shadow-lg rounded-lg p-6 max-w-sm w-full">
         <img
           src={profileImage}

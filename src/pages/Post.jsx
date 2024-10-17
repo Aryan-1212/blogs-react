@@ -3,16 +3,24 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import dbService from "../appwrite/dbConf";
 import { Button, Container, Loader } from "../components";
 import parse from "html-react-parser";
+import authService from "../appwrite/auth";
 import { useSelector } from "react-redux";
 
 export default function Post() {
   const [post, setPost] = useState(null);
   const { slug } = useParams();
+  const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
-  const userData = useSelector((state) => state.authSlice.userData);
+  // const userData = useSelector((state) => state.authSlice.userData);
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
+  useEffect(() => {
+    const userData = authService.getUser();
+    userData.then((res) => {
+      setUserData(res);
+    });
+  }, []);
 
   useEffect(() => {
     if (slug) {
@@ -27,7 +35,7 @@ export default function Post() {
     dbService.deletePost(post.$id).then((status) => {
       if (status) {
         dbService.deleteFile(post.featuredImage);
-        navigate("/");
+        navigate("/my-posts");
       }
     });
   };

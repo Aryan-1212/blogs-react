@@ -36,16 +36,16 @@ function Home() {
               </h1>
             </div>
           </div> */}
-          <div className="space-y-20">
-            <div className="w-full flex">
+          <div className="space-y-10 md:space-y-20">
+            <div className="w-full flex flex-col justify-center items-center md:flex-row">
               <div>
                 <img src={home1} alt="" />
               </div>
-              <div className="flex justify-center items-start flex-col">
-                <h1 className="text-4xl font-bold hover:text-gray-500">
+              <div className="flex justify-center items-center md:items-start flex-col">
+                <h1 className="text-xl md:text-4xl font-bold hover:text-gray-500">
                   Share Your Story with the World
                 </h1>
-                <p className="text-start">
+                <p className="text-center text-sm md:text-lg md:text-start">
                   Craft your blog effortlessly and make your voice heard. Start
                   building your personal online space today!
                 </p>
@@ -59,12 +59,14 @@ function Home() {
               </div>
             </div>
 
-            <div className="w-full flex">
-              <div className="flex justify-center items-end text-end flex-col">
-                <h1 className="text-4xl font-bold hover:text-gray-500">
+            <hr className="my-8 border-t-2 border-gray-300 md:hidden" />            
+
+            <div className="w-full flex flex-col md:flex-row">
+              <div className="flex justify-center items-center md:items-end text-end flex-col">
+                <h1 className="text-xl text-center md:text-end md:text-4xl font-bold hover:text-gray-500">
                   Read Stories from Around the World
                 </h1>
-                <p className="text-end">
+                <p className="text-center text-sm md:text-lg md:text-end">
                   Discover stories from people around the world. Read about
                   their experiences, lessons, and more.
                 </p>
@@ -78,10 +80,10 @@ function Home() {
 
             <div className="w-full flex flex-col justify-center items-center">
               <div className="flex justify-center items-center text-end flex-col mb-20">
-                <h1 className="text-6xl font-bold hover:text-gray-500">
+                <h1 className="text-2xl sm:text-4xl text-center md:text-6xl font-bold hover:text-gray-500">
                 Bring Your Ideas to Life
                 </h1>
-                <p className="text-end">
+                <p className="text-center text-sm md:text-lg">
                 Create a blog that reflects your unique perspective. Share, inspire, and connect with a global audience in just a few clicks!
                 </p>
               </div>
@@ -98,13 +100,13 @@ function Home() {
   ) : (
     <div className="py-8 w-full">
       <Container>
-        <div className="flex flex-wrap">
-          {posts.map((post) => (
-            <div key={post.$id} className="p-2 w-1/4">
-              <PostCard {...post} />
-            </div>
-          ))}
-        </div>
+          <div className="flex flex-wrap">
+            {posts.map((post) => (
+              <div key={post.$id} className="p-2 w-1/2 sm:w-1/3 md:w-1/4">
+                <PostCard {...post} />
+              </div>
+            ))}
+          </div>
       </Container>
     </div>
   );

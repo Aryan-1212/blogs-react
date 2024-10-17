@@ -1,10 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {Container, Logo, LogoutBtn} from './'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 function Header() {
 
+  const location = useLocation()
   const authStatus = useSelector((state)=>state.authSlice.status)
   const navigate = useNavigate()
 
@@ -25,8 +26,8 @@ function Header() {
       active:!authStatus,
     },
     {
-      name:'All Posts',
-      url:'/all-posts',
+      name:'My Posts',
+      url:'/my-posts',
       active:authStatus,
     },
     {
@@ -46,16 +47,16 @@ function Header() {
         <nav className='flex'>
           <div className='mr-4 '>
             <Link to='/'>
-              <Logo width='100px' />
+              <Logo width='200px' />
             </Link>
           </div>
-          <ul className='flex ml-auto'>
+          <ul className='flex ml-auto text-xs md:text-lg'>
             {navItems.map((item)=>(
               item.active? (
                 <li key={item.name} className='flex justify-center items-center'>
                   <button
                     onClick={()=>navigate(item.url)}
-                    className='inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
+                    className={`${location.pathname == item.url? 'bg-blue-100':null} inline-block px-2 sm:px-5 md:px-6 py-2 duration-200 hover:bg-blue-100 rounded-full`}
                   >{item.name}</button>
                 </li>
               ) : null

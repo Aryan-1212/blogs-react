@@ -60,7 +60,7 @@ class DbService{
 
     async deletePost(slug){
         try {
-            await this.databases.updateDocument(
+            await this.databases.deleteDocument(
                 Conf.appwriteDatabaseId,
                 Conf.appwriteCollectionId,
                 slug
